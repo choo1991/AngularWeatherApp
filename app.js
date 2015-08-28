@@ -19,9 +19,9 @@ weatherApp.service('cityService', function() {
 
 // Controllers
 weatherApp.controller('homeController' , ['$scope', 'cityService', function($scope, cityService) {
-    $scope.currentCity = cityService.currentCity;
-    $scope.$watch("cityInput", function() {
-        cityService.currentCity = $scope.currentCity;
+    $scope.cityObject = {city: cityService.currentCity};
+    $scope.$watch('cityObject.city', function() {
+        cityService.currentCity = $scope.cityObject.city;
     });
 }]);
 
