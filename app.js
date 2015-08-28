@@ -32,6 +32,4 @@ weatherApp.controller('forecastController' , ['$scope', '$resource', 'cityServic
         callback: "JSON_CALLBACK" }, {get: { method: "JSONP"}});
     
     $scope.forecastResult = $scope.weatherAPI.get({ q: $scope.currentCity, mode: 'json', units: 'imperial', cnt: 7});
-    
-    console.log($scope.forecastResult);
 }]);

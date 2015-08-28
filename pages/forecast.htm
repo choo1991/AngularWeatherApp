@@ -1,2 +1,9 @@
 <h1>Forecast Page</h1>
 <div>{{ currentCity }}</div>
+
+<div class="panel panel-default" ng-repeat="dayForecast in forecastResult.list">
+    <div class="panel-heading">{{ dayForecast.dt }}</div>
+    <div class="panel-body">
+        The average tempature for the day is: {{ dayForecast.temp.day }}
+    </div>
+</div>
