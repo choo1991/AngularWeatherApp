@@ -1,8 +1,13 @@
 <h1>Forecast Page</h1>
 <div>{{ currentCity }}</div>
+<div class="btn-group">
+    <a class="btn btn-primary" ng-class="{ 'active': checkDayShown(3) }">3</a>
+    <a class="btn btn-primary">5</a>
+    <a class="btn btn-primary">7</a>
+</div>
 
 <div class="panel panel-default" ng-repeat="dayForecast in forecastResult.list">
-    <div class="panel-heading">{{ dayForecast.dt }}</div>
+    <div class="panel-heading">{{ dayForecast.dt * 1000 | date: "MM/dd/yyyy" : 'UTC' }}</div>
     <div class="panel-body">
         The average tempature for the day is: {{ dayForecast.temp.day }}
     </div>
