@@ -15,7 +15,8 @@ weatherApp.config(function ($routeProvider) {
 // Services
 weatherApp.service('cityService', function() {
     this.currentCity = "Seattle, WA";
-    this.daysToShow = 3;
+    this.daysToShow = 5;
+    
 });
 
 // Controllers
@@ -29,12 +30,25 @@ weatherApp.controller('homeController' , ['$scope', 'cityService', function($sco
 weatherApp.controller('forecastController' , ['$scope', '$resource', 'cityService', function($scope, $resource, cityService) {
     $scope.currentCity = cityService.currentCity;
     
-    $scope.checkDaysShown = function(days) {
-        return days === cityService.daysToShow;
+    $scope.cityServiceMethods = {
+        checkDaysShown: function(days) {
+            return days === cityService.daysToShow;
+        },
+        setDaysShown: function(days) {
+            cityService.daysToShow = days;
+        }
     }
     
     $scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/forecast/daily", {
         callback: "JSON_CALLBACK" }, {get: { method: "JSONP"}});
     
-    $scope.forecastResult = $scope.weatherAPI.get({ q: $scope.currentCity, mode: 'json', units: 'imperial', cnt: 7});
+    $scope.retrieveWeatherData = function() {
+        $scope.forecastResult = $scope.weatherAPI.get({ q: $scope.currentCity, mode: 'json', units: 'imperial', cnt: cityService.daysToShow});
+    }
+    
+    $scope.$watch('cityService.daysToShow', function() {
+        $scope.retrieveWeatherData();
+    });
+    
+    
 }]);
